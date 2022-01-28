@@ -5,10 +5,10 @@ import re
 import sys
 import argparse
 
+from helpers.rootfile import RootFile
+from helpers.histogram import Histogram, OverlayHistogram
+
 from util import (
-    RootFile, 
-    Histogram,
-    OverlayHistogram,
     get_job_tag,
     get_pretty_plot_tag
 )
