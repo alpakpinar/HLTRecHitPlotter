@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import re
 import sys
 import argparse
 
@@ -18,6 +19,7 @@ def parse_cli():
     parser = argparse.ArgumentParser()
     parser.add_argument('inpath', help='Path to the input ROOT file containing the histograms.')
     parser.add_argument('--dataset', help='The dataset we processed: MET or EGamma.', choices=['MET','EGamma'])
+    parser.add_argument('--distribution', help='Regex specifying the name of distributions we want to plot.', default='.*')
     args = parser.parse_args()
     return args
 
@@ -42,6 +44,9 @@ def get_histograms_for_dataset(dataset):
 
     noise_histograms = [
         Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', 1),
+        Histogram('sigmaPhiRechitEnergy', r'$\sigma_{i\phi i\phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('sigmaPhiRechitEta', r'$\sigma_{i\phi i\phi}$', r'Rechit $\eta$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('sigmaPhiRechitPhi', r'$\sigma_{i\phi i\phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         OverlayHistogram('met', r'$p_T^{miss} \ (GeV)$', 'Counts', root_histo_names=['metPtNotClean', 'metPtClean']),
     ]
     
@@ -62,6 +67,8 @@ def main():
     histograms = get_histograms_for_dataset(args.dataset)
 
     for hist in tqdm(histograms, desc="Plotting histograms"):
+        if not re.match(args.distribution, hist.name):
+            continue
         # A single histogram, 1D or 2D
         if isinstance(hist, Histogram):
             h = rf.get_histogram(hist.name)

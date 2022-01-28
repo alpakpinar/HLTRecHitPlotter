@@ -1,4 +1,5 @@
 import os
+import re
 from typing import List, Optional
 import uproot
 import matplotlib.colors
@@ -74,7 +75,7 @@ class Histogram(HistogramBase):
         
         self._save_fig(fig=fig, path=os.path.join(outdir, f"{self.name}.pdf"))
 
-    def _plot2d(self, outdir: str, normed: bool=False, text: bool=False) -> None:
+    def _plot2d(self, outdir: str, normed: bool=False) -> None:
         '''Plot 2-dimensional histogram object.'''
         fig, ax = plt.subplots()
         vals = self.h_obj.values.T
@@ -89,7 +90,7 @@ class Histogram(HistogramBase):
         cb = fig.colorbar(pc)
         cb.set_label("Counts")
 
-        if text:
+        if re.match('.*StripSize.*', self.name):
             xedges = self.h_obj.edges[0]
             xcenters = 0.5 * (xedges[:-1] + xedges[1:])
             yedges = self.h_obj.edges[1]
@@ -107,12 +108,12 @@ class Histogram(HistogramBase):
                     ax.text(xcenter, ycenter, txtformat % vals[iy, ix], **opts)
 
         # Sigma eta-phi plot: Plot the diagonal cut that we apply
-        else:
+        elif re.match('.*sigmaEtaPhi.*', self.name):
             xs = ax.get_xlim()
             ys = (xs[0]-0.05, xs[1]-0.05)
             ax.plot(xs, ys, color='red', lw=3)
             ax.set_ylim(0,0.2)
-
+        
         ax.set_xlabel(self.xlabel, fontsize=self.fontsize)
         ax.set_ylabel(self.ylabel, fontsize=self.fontsize)
         
@@ -125,8 +126,7 @@ class Histogram(HistogramBase):
         if self.ndim == 1:
             return self._plot1d(outdir=outdir)
         return self._plot2d(outdir=outdir, 
-            normed='StripSize' in self.name, 
-            text='StripSize' in self.name
+            normed='StripSize' in self.name
             )
 
 @dataclass
