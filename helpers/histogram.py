@@ -5,7 +5,7 @@ import numpy as np
 import mplhep as hep
 
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import Dict, List, Optional
 from matplotlib import pyplot as plt
 
 @dataclass
@@ -132,18 +132,48 @@ class Histogram(HistogramBase):
 class OverlayHistogram(HistogramBase):
     '''Object to store and plot overlayed 1D histograms on a single plot.'''
     root_histo_names: List[str] = field(default_factory=list)
+    
+    # thresh: Dictionary specifying a distribution and threshold value
+    # e.g.
+    # thresh: {
+    #   "distribution" : "met",
+    #   "value" : 100
+    # }
+    thresh: Optional[Dict] = None
 
     def set_histogram_objects(self, histo_map) -> None:
         self.histo_map = histo_map
 
+    def compute_ratio(self, histo, thresh: float) -> float:
+        vals = histo.values
+        centers = 0.5 * (histo.edges[1:] + histo.edges[:-1])
+        mask = centers < thresh
+        
+        ratio = np.sum(vals[mask]) / np.sum(vals) * 100
+        return ratio
+
     def plot(self, outdir: str) -> None:
         fig, ax = plt.subplots()
+        ratios = []
         for label, h in self.histo_map.items():
             hep.histplot(h.values, h.edges, ax=ax, label=label)
+            if self.thresh is not None:
+                r = self.compute_ratio(h, thresh=self.thresh['value'])
+                if r > 0:
+                    ratios.append( r )
         
         ax.set_xlabel(self.xlabel, fontsize=self.fontsize)
         ax.set_ylabel(self.ylabel, fontsize=self.fontsize)
         ax.legend()
+
+        if len(ratios) > 0 and self.thresh is not None:
+            r = ratios[0]
+            ax.text(0.99, 0.7,f'% of events with \n ${self.thresh["distribution"]} < {self.thresh["value"]} \\ GeV: {r:.2f}\\%$', 
+                fontsize=self.fontsize,
+                ha='right',
+                va='bottom',
+                transform=ax.transAxes
+                )
 
         if self.plottag:
             self._decorate_plot(ax)

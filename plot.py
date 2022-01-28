@@ -47,7 +47,7 @@ def get_histograms_for_dataset(dataset):
         Histogram('sigmaPhiRechitEnergy', r'$\sigma_{i\phi i\phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('sigmaPhiRechitEta', r'$\sigma_{i\phi i\phi}$', r'Rechit $\eta$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('sigmaPhiRechitPhi', r'$\sigma_{i\phi i\phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
-        OverlayHistogram('met', r'$p_T^{miss} \ (GeV)$', 'Counts', root_histo_names=['metPtNotClean', 'metPtClean']),
+        OverlayHistogram('met', r'$p_T^{miss} \ (GeV)$', 'Counts', root_histo_names=['metPtNotClean', 'metPtClean'], thresh={'distribution': 'MET', 'value': 100}),
     ]
     
     histos['EGamma'] = common_histograms + physics_histograms
