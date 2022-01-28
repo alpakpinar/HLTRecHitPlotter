@@ -5,35 +5,20 @@ import matplotlib.colors
 import numpy as np
 import mplhep as hep
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from matplotlib import pyplot as plt
 
 @dataclass
-class Histogram():
+class HistogramBase():
     '''
-    Simple 1D or 2D histogram class.
-    Initialize the instance with name and labels, attach it to an uproot histogram and plot.
-    >>> h = Histogram(<name>, <xlabel>, <ylabel>, <ndim>)
-    >>> h.set_histogram_object(<uproot_histo>)
-    >>> h.plot(outdir=<output_path>)
+    Base object for a histogram.
     '''
     name: str
     xlabel: str
     ylabel: str
-    ndim: int
     fontsize: int=14
-    logscale: bool=False
-    vmin: Optional[float]=None
-    vmax: Optional[float]=None
     plottag: Optional[str]=None
 
-    def __post_init__(self) -> None:
-        assert self.ndim in (1,2), f"Number of dimensions not accepted: {self.ndim}"
-
-    def set_histogram_object(self, h_obj) -> None:
-        '''Matches the uproot histogram object with the instance of the Histogram class.'''
-        self.h_obj = h_obj
-        
     def _save_fig(self, fig: plt.figure, path: str) -> None:
         outdir = os.path.dirname(path)
         if not os.path.exists(outdir):
@@ -55,6 +40,28 @@ class Histogram():
             transform=ax.transAxes
         )
 
+
+@dataclass
+class Histogram(HistogramBase):
+    '''
+    Simple 1D or 2D histogram class.
+    Initialize the instance with name and labels, attach it to an uproot histogram and plot.
+    >>> h = Histogram(<name>, <xlabel>, <ylabel>, <ndim>)
+    >>> h.set_histogram_object(<uproot_histo>)
+    >>> h.plot(outdir=<output_path>)
+    '''
+    ndim: int=1
+    logscale: bool=False
+    vmin: Optional[float]=None
+    vmax: Optional[float]=None
+
+    def __post_init__(self) -> None:
+        assert self.ndim in (1,2), f"Number of dimensions not accepted: {self.ndim}"
+
+    def set_histogram_object(self, h_obj) -> None:
+        '''Matches the uproot histogram object with the instance of the Histogram class.'''
+        self.h_obj = h_obj
+        
     def _plot1d(self, outdir: str) -> None:
         '''Plot 1-dimensional histogram object.'''
         fig, ax = plt.subplots()
@@ -123,22 +130,12 @@ class Histogram():
             )
 
 @dataclass
-class OverlayHistogram():
+class OverlayHistogram(HistogramBase):
     '''Object to store and plot overlayed 1D histograms on a single plot.'''
-    name: str
-    root_histo_names: List[str]
-    xlabel: str
-    ylabel: str
-    fontsize: int=14 
+    root_histo_names: List[str] = field(default_factory=list)
 
     def set_histogram_objects(self, histo_map) -> None:
         self.histo_map = histo_map
-
-    def _save_fig(self, fig: plt.figure, path: str) -> None:
-        outdir = os.path.dirname(path)
-        if not os.path.exists(outdir):
-            os.makedirs(outdir)
-        fig.savefig(path)
 
     def plot(self, outdir: str) -> None:
         fig, ax = plt.subplots()
@@ -148,6 +145,9 @@ class OverlayHistogram():
         ax.set_xlabel(self.xlabel, fontsize=self.fontsize)
         ax.set_ylabel(self.ylabel, fontsize=self.fontsize)
         ax.legend()
+
+        if self.plottag:
+            self._decorate_plot(ax)
         
         self._save_fig(fig=fig, path=os.path.join(outdir, f"{self.name}.pdf"))
 
@@ -184,7 +184,7 @@ def get_job_tag(inpath: str):
 def get_pretty_plot_tag(dataset: str):
     '''Given the dataset name (short), get the pretty tag to print in the plot.'''
     mapping = {
-        'MET' : 'MET 2018D, Run: 324980',
+        'MET' : 'MET 2018A, Run: 315264',
         'EGamma' : 'EGamma 2018D, Run: 324500-324999',
     }
     try:

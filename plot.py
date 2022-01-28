@@ -25,12 +25,12 @@ def get_histograms_for_dataset(dataset):
     '''Get the list of histograms we'll plot for given dataset.'''
     histos = {}
     common_histograms = [
-        Histogram('jetPt', r'Leading Jet $p_T \ (GeV)$', 'Counts', 1),
-        Histogram('jetEta', r'Leading Jet $\eta$', 'Counts', 1),
-        Histogram('jetPhi', r'Leading Jet $\phi$', 'Counts', 1),
-        Histogram('numHFRechits', r'Number of Seed HF RecHits ($E_T > 30 \ GeV$)', 'Counts', 1),
-        Histogram('sigmaEtaPhi', r'$\sigma_{i\eta i\eta}$', r'$\sigma_{i\phi i\phi}$', 2, logscale=True, vmin=1e0, vmax=1e2),
-        Histogram('centralAdjacentStripSize', r'Central $\eta$ Strip Size', r'Adjacent $\eta$ Strip Size', 2),
+        Histogram('jetPt', r'Leading Jet $p_T \ (GeV)$', 'Counts', ndim=1),
+        Histogram('jetEta', r'Leading Jet $\eta$', 'Counts', ndim=1),
+        Histogram('jetPhi', r'Leading Jet $\phi$', 'Counts', ndim=1),
+        Histogram('numHFRechits', r'Number of Seed HF RecHits ($E_T > 30 \ GeV$)', 'Counts', ndim=1),
+        Histogram('sigmaEtaPhi', r'$\sigma_{i\eta i\eta}$', r'$\sigma_{i\phi i\phi}$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('centralAdjacentStripSize', r'Central $\eta$ Strip Size', r'Adjacent $\eta$ Strip Size', ndim=2),
     ]
 
     physics_histograms = [
@@ -42,7 +42,7 @@ def get_histograms_for_dataset(dataset):
 
     noise_histograms = [
         Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', 1),
-        OverlayHistogram('met', ['metPtNotClean', 'metPtClean'], r'$p_T^{miss} \ (GeV)$', 'Counts'),
+        OverlayHistogram('met', r'$p_T^{miss} \ (GeV)$', 'Counts', root_histo_names=['metPtNotClean', 'metPtClean']),
     ]
     
     histos['EGamma'] = common_histograms + physics_histograms
@@ -75,6 +75,7 @@ def main():
             for hname in hist.root_histo_names:
                 histo_map[hname] = rf.get_histogram(hname)
             hist.set_histogram_objects(histo_map)
+            hist.plottag = get_pretty_plot_tag(args.dataset)
         
         # The histogram object must be either Histogram or OverlayHistogram
         else:
