@@ -74,6 +74,8 @@ def main():
             h = rf.get_histogram(hist.name)
             hist.set_histogram_object(h)
             hist.plottag = get_pretty_plot_tag(args.dataset)
+            if args.dataset == 'EGamma':
+                hist.vmax = 1e2
         
         # Overlayed histograms in a single plot:
         # e.g. Cleaned vs. uncleaned MET
