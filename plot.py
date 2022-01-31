@@ -36,10 +36,10 @@ def get_histograms_for_dataset(dataset):
     ]
 
     physics_histograms = [
-        Histogram('photonPt', r'Photon $p_T \ (GeV)$', 'Counts', 1),
-        Histogram('photonEta', r'Photon $\eta$', 'Counts', 1),
-        Histogram('photonPhi', r'Photon $\phi$', 'Counts', 1),
-        Histogram('dphiJetPho', r'$\Delta\phi(j, \gamma)$', 'Counts', 1),
+        Histogram('photonPt', r'Photon $p_T \ (GeV)$', 'Counts', ndim=1),
+        Histogram('photonEta', r'Photon $\eta$', 'Counts', ndim=1),
+        Histogram('photonPhi', r'Photon $\phi$', 'Counts', ndim=1),
+        Histogram('dphiJetPho', r'$\Delta\phi(j, \gamma)$', 'Counts', ndim=1),
     ]
 
     noise_histograms = [
