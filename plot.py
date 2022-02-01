@@ -44,7 +44,8 @@ def get_histograms_for_dataset(dataset):
     ]
 
     noise_histograms = [
-        Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', 1),
+        Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', ndim=1),
+        Histogram('averageDPhiFromSeed', r'Average $\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
         Histogram('sigmaPhiRechitEnergy', r'$\sigma_{i\phi i\phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('sigmaPhiRechitEta', r'$\sigma_{i\phi i\phi}$', r'Rechit $\eta$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('sigmaPhiRechitPhi', r'$\sigma_{i\phi i\phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
