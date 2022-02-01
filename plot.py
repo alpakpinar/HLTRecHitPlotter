@@ -40,6 +40,7 @@ def get_histograms_for_dataset(dataset):
         Histogram('photonEta', r'Photon $\eta$', 'Counts', ndim=1),
         Histogram('photonPhi', r'Photon $\phi$', 'Counts', ndim=1),
         Histogram('dphiJetPho', r'$\Delta\phi(j, \gamma)$', 'Counts', ndim=1),
+        Histogram('dptJetPho', r'$\Delta p_T(j, \gamma) \ / \ p_T(j)$', 'Counts', ndim=1),
     ]
 
     noise_histograms = [
@@ -63,6 +64,8 @@ def main():
 
     tag = get_job_tag(inpath)
     outdir = f"./output/{tag}"
+
+    assert args.dataset is not None, "Please specify a dataset name: MET or EGamma"
 
     histograms = get_histograms_for_dataset(args.dataset)
 
