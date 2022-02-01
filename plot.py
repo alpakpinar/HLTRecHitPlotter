@@ -41,7 +41,7 @@ def get_histograms_for_dataset(dataset):
         Histogram('photonPhi', r'Photon $\phi$', 'Counts', ndim=1),
         Histogram('dphiJetPho', r'$\Delta\phi(j, \gamma)$', 'Counts', ndim=1),
         Histogram('dptJetPho', r'$\Delta p_T(j, \gamma) \ / \ p_T(j)$', 'Counts', ndim=1),
-        Histogram('averageDPhi_centralStripSize', r'Average $\Delta \phi$ From Seed RecHit', r'Central $\eta$ Strip Size', ndim=2),
+        Histogram('averageDPhi_centralStripSize', r'Average $\Delta \phi$ From Seed RecHit', r'Central $\eta$ Strip Size', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
     ]
 
     noise_histograms = [
@@ -79,7 +79,7 @@ def main():
             h = rf.get_histogram(hist.name)
             hist.set_histogram_object(h)
             hist.plottag = get_pretty_plot_tag(args.dataset)
-            if args.dataset == 'EGamma':
+            if args.dataset == 'EGamma' and hist.name in ['sigmaEtaPhi']:
                 hist.vmax = 1e2
         
         # Overlayed histograms in a single plot:

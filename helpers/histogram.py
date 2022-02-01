@@ -125,7 +125,7 @@ class Histogram(HistogramBase):
         if self.ndim == 1:
             return self._plot1d(outdir=outdir)
         return self._plot2d(outdir=outdir, 
-            normed='StripSize' in self.name
+            normed=self.name in ['centralAdjacentStripSize']
             )
 
 @dataclass
