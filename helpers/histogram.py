@@ -89,7 +89,7 @@ class Histogram(HistogramBase):
         cb = fig.colorbar(pc)
         cb.set_label("Counts")
 
-        if re.match('.*StripSize.*', self.name):
+        if self.name in ['centralAdjacentStripSize']:
             xedges = self.h_obj.edges[0]
             xcenters = 0.5 * (xedges[:-1] + xedges[1:])
             yedges = self.h_obj.edges[1]

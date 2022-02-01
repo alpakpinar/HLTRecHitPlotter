@@ -41,6 +41,7 @@ def get_histograms_for_dataset(dataset):
         Histogram('photonPhi', r'Photon $\phi$', 'Counts', ndim=1),
         Histogram('dphiJetPho', r'$\Delta\phi(j, \gamma)$', 'Counts', ndim=1),
         Histogram('dptJetPho', r'$\Delta p_T(j, \gamma) \ / \ p_T(j)$', 'Counts', ndim=1),
+        Histogram('averageDPhi_centralStripSize', r'Average $\Delta \phi$ From Seed RecHit', r'Central $\eta$ Strip Size', ndim=2),
     ]
 
     noise_histograms = [
