@@ -18,7 +18,7 @@ from tqdm import tqdm
 def parse_cli():
     parser = argparse.ArgumentParser()
     parser.add_argument('inpath', help='Path to the input ROOT file containing the histograms.')
-    parser.add_argument('--dataset', help='The dataset we processed: MET or EGamma.', choices=['MET','EGamma'])
+    parser.add_argument('--dataset', help='The dataset we processed: MET or EGamma.', choices=['MET','EGamma','VBFHinv'])
     parser.add_argument('--distribution', help='Regex specifying the name of distributions we want to plot.', default='.*')
     args = parser.parse_args()
     return args
@@ -27,14 +27,24 @@ def get_histograms_for_dataset(dataset):
     '''Get the list of histograms we'll plot for given dataset.'''
     histos = {}
     common_histograms = [
-        Histogram('jetPt', r'Leading Jet $p_T \ (GeV)$', 'Counts', ndim=1),
-        Histogram('jetEta', r'Leading Jet $\eta$', 'Counts', ndim=1),
-        Histogram('jetPhi', r'Leading Jet $\phi$', 'Counts', ndim=1),
         Histogram('numHFRechits', r'Number of Seed HF RecHits ($E_T > 30 \ GeV$)', 'Counts', ndim=1),
         Histogram('sigmaEtaPhi', r'$\sigma_{i\eta i\eta}$', r'$\sigma_{i\phi i\phi}$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('centralAdjacentStripSize', r'Central $\eta$ Strip Size', r'Adjacent $\eta$ Strip Size', ndim=2),
     ]
 
+    vbf_histograms = [
+        Histogram('jetPt0', r'Leading Jet $p_T \ (GeV)$', 'Counts', ndim=1),
+        Histogram('jetEta0', r'Leading Jet $\eta$', 'Counts', ndim=1),
+        Histogram('jetPhi0', r'Leading Jet $\phi$', 'Counts', ndim=1),
+        Histogram('jetPt1', r'Trailing Jet $p_T \ (GeV)$', 'Counts', ndim=1),
+        Histogram('jetEta1', r'Trailing Jet $\eta$', 'Counts', ndim=1),
+        Histogram('jetPhi1', r'Trailing Jet $\phi$', 'Counts', ndim=1),
+        Histogram('mjj', r'$m_{jj} \ (GeV)$', 'Counts', ndim=1),
+        Histogram('detajj', r'$\Delta \eta_{jj}$', 'Counts', ndim=1),
+        Histogram('dphijj', r'$\Delta \phi_{jj}$', 'Counts', ndim=1),
+        OverlayHistogram('met', r'$p_T^{miss} \ (GeV)$', 'Counts', root_histo_names=['metPtNotClean', 'metPtClean'], thresh={'distribution': 'MET', 'value': 150}),
+    ]
+    
     physics_histograms = [
         Histogram('photonPt', r'Photon $p_T \ (GeV)$', 'Counts', ndim=1),
         Histogram('photonEta', r'Photon $\eta$', 'Counts', ndim=1),
@@ -45,6 +55,9 @@ def get_histograms_for_dataset(dataset):
     ]
 
     noise_histograms = [
+        Histogram('jetPt', r'Leading Jet $p_T \ (GeV)$', 'Counts', ndim=1),
+        Histogram('jetEta', r'Leading Jet $\eta$', 'Counts', ndim=1),
+        Histogram('jetPhi', r'Leading Jet $\phi$', 'Counts', ndim=1),
         Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', ndim=1),
         Histogram('averageDPhiFromSeed', r'Average $\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
         Histogram('sigmaPhiRechitEnergy', r'$\sigma_{i\phi i\phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
@@ -55,6 +68,7 @@ def get_histograms_for_dataset(dataset):
     
     histos['EGamma'] = common_histograms + physics_histograms
     histos['MET'] = common_histograms + noise_histograms
+    histos['VBFHinv'] = common_histograms + vbf_histograms
 
     return histos[dataset]
 
@@ -79,7 +93,7 @@ def main():
             h = rf.get_histogram(hist.name)
             hist.set_histogram_object(h)
             hist.plottag = get_pretty_plot_tag(args.dataset)
-            if args.dataset == 'EGamma' and hist.name in ['sigmaEtaPhi']:
+            if args.dataset in ['EGamma', 'VBFHinv'] and hist.name in ['sigmaEtaPhi']:
                 hist.vmax = 1e2
         
         # Overlayed histograms in a single plot:

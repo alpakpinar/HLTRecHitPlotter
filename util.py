@@ -9,6 +9,7 @@ def get_pretty_plot_tag(dataset: str):
     mapping = {
         'MET' : 'MET 2018A, Run: 315264',
         'EGamma' : 'EGamma 2018A, Run: 316600-316766',
+        'VBFHinv' : 'VBF H(inv), 14 TeV',
     }
     try:
         return mapping[dataset]
