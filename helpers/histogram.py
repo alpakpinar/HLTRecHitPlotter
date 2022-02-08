@@ -72,6 +72,10 @@ class Histogram(HistogramBase):
         if self.plottag:
             self._decorate_plot(ax)
         
+        if self.logscale:
+            ax.set_yscale('log')
+            ax.set_ylim(self.vmin, self.vmax)
+
         self._save_fig(fig=fig, path=os.path.join(outdir, f"{self.name}.pdf"))
 
     def _plot2d(self, outdir: str, normed: bool=False) -> None:
