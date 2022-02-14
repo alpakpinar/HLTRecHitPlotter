@@ -59,6 +59,8 @@ def get_histograms_for_dataset(dataset):
         Histogram('jetPt', r'Leading Jet $p_T \ (GeV)$', 'Counts', ndim=1),
         Histogram('jetEta', r'Leading Jet $\eta$', 'Counts', ndim=1),
         Histogram('jetPhi', r'Leading Jet $\phi$', 'Counts', ndim=1),
+        Histogram('sigmaEtaEta', r'Seed Rechit $\sigma_{\eta \eta}$', 'Counts', ndim=1),
+        Histogram('sigmaPhiPhi', r'Seed Rechit $\sigma_{\phi \phi}$', 'Counts', ndim=1),
         Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', ndim=1),
         Histogram('averageDPhiFromSeed', r'Average $\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
         Histogram('sigmaPhiRechitEnergy', r'$\sigma_{i\phi i\phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
@@ -91,7 +93,10 @@ def main():
             continue
         # A single histogram, 1D or 2D
         if isinstance(hist, Histogram):
-            h = rf.get_histogram(hist.name)
+            try:
+                h = rf.get_histogram(hist.name)
+            except KeyError:
+                continue
             hist.set_histogram_object(h)
             hist.plottag = get_pretty_plot_tag(args.dataset)
             if args.dataset in ['EGamma', 'VBFHinv'] and hist.name in ['sigmaEtaPhi']:
