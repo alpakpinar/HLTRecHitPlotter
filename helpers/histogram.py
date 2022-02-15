@@ -18,6 +18,9 @@ class HistogramBase():
     ylabel: str
     fontsize: int=14
     plottag: Optional[str]=None
+    logscale: bool=False
+    vmin: Optional[float]=None
+    vmax: Optional[float]=None
 
     def _save_fig(self, fig: plt.figure, path: str) -> None:
         outdir = os.path.dirname(path)
@@ -51,9 +54,6 @@ class Histogram(HistogramBase):
     >>> h.plot(outdir=<output_path>)
     '''
     ndim: int=1
-    logscale: bool=False
-    vmin: Optional[float]=None
-    vmax: Optional[float]=None
 
     def __post_init__(self) -> None:
         assert self.ndim in (1,2), f"Number of dimensions not accepted: {self.ndim}"
@@ -181,5 +181,9 @@ class OverlayHistogram(HistogramBase):
 
         if self.plottag:
             self._decorate_plot(ax)
+
+        if self.logscale:
+            ax.set_yscale('log')
+            ax.set_ylim(self.vmin, self.vmax)
         
         self._save_fig(fig=fig, path=os.path.join(outdir, f"{self.name}.pdf"))

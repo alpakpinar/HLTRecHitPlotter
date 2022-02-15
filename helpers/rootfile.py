@@ -13,16 +13,18 @@ class RootFile():
     inpath: str
     
     def __post_init__(self) -> None:
-        self._get_directory()
+        self._index_into_file()
     
-    def _get_directory(self) -> None:
-        f = uproot.open(self.inpath)
-        # Get the directory key
-        keys = [k.decode('utf-8').replace(';1','') for k in f.keys()]
-        # There should be exactly one key (representing the EDAnalyzer we ran)
-        assert len(keys) == 1, f"Input ROOT file {self.inpath} has more than one directory!"
-        self.directory = f[keys[0]]
+    def _index_into_file(self) -> None:
+        self.f = uproot.open(self.inpath)
+        # Get the directory keys
+        self.keys = [k.decode('utf-8').replace(';1','') for k in self.f.keys()]
     
     def get_histogram(self, histname: str):
         '''Retrieve the specified histogram.'''
-        return self.directory[histname]
+        for key in self.keys:
+            histos_in_dir = [k.decode('utf-8').replace(';1','') for k in self.f[key].keys()]
+            if histname in histos_in_dir:
+                return self.f[key][histname]
+        
+        raise KeyError(f'Histogram not found: {histname}')
