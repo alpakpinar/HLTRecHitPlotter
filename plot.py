@@ -68,8 +68,9 @@ def get_histograms_for_dataset(dataset):
         Histogram('sigmaPhiRechitPhi', r'$\sigma_{i\phi i\phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('initialRechitEtaPhi', r'Rechit $\eta$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e3, vmax=1e7),
         Histogram('mergedRechitEtaPhi', r'Rechit $\eta$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e3, vmax=1e7),
+        Histogram('initialMergedRechitEnergies', r'Base Rechit Energy (GeV)', r'Merged Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=1e7),
         OverlayHistogram('met', r'$p_T^{miss} \ (GeV)$', 'Counts', root_histo_names=['metPtNotClean', 'metPtClean'], thresh={'distribution': 'MET', 'value': 100}),
-        OverlayHistogram('numRechits', r'Number of Rechits ($E > 1 GeV$)', 'Counts', root_histo_names=['numInitialRechits', 'numMergedRechits'], logscale=True, vmin=1e0, vmax=1e6),
+        OverlayHistogram('numRechits', r'Number of Rechits ($E > 1 \ GeV$)', 'Counts', root_histo_names=['numInitialRechits', 'numMergedRechits'], logscale=True, vmin=1e0, vmax=1e6),
         OverlayHistogram('rechitEnergies', r'Rechit Energy (GeV)', 'Counts', root_histo_names=['initialRechitEnergies', 'mergedRechitEnergies'], logscale=True, vmin=1e0, vmax=1e9),
     ]
     

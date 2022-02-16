@@ -117,6 +117,16 @@ class Histogram(HistogramBase):
             ax.plot(xs, ys, color='red', lw=3)
             ax.set_ylim(0,0.2)
         
+        elif self.name in ['initialMergedRechitEnergies']:
+            xs = ax.get_xlim()
+            ylim = ax.get_ylim()
+            ys = (xs[0]*2, xs[1]*2)
+            ax.plot(xs, ys, color='red', lw=3, label=r'$y = 2x$')
+            ax.plot(xs, xs, color='k', ls='--', label=r'$y = x$')
+            ax.set_ylim(ylim)
+            
+            ax.legend(loc='lower right')
+
         ax.set_xlabel(self.xlabel, fontsize=self.fontsize)
         ax.set_ylabel(self.ylabel, fontsize=self.fontsize)
         
