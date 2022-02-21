@@ -115,7 +115,8 @@ class Histogram(HistogramBase):
             xs = ax.get_xlim()
             ys = (xs[0]-0.05, xs[1]-0.05)
             ax.plot(xs, ys, color='red', lw=3)
-            ax.set_ylim(0,0.2)
+            ax.set_xlim(0,0.4)
+            ax.set_ylim(0,0.4)
         
         elif self.name in ['initialMergedRechitEnergies']:
             xs = ax.get_xlim()

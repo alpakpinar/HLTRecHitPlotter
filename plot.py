@@ -28,7 +28,7 @@ def get_histograms_for_dataset(dataset):
     histos = {}
     common_histograms = [
         Histogram('numHFRechits', r'Number of Seed HF RecHits ($E_T > 30 \ GeV$)', 'Counts', ndim=1),
-        Histogram('sigmaEtaPhi', r'$\sigma_{i\eta i\eta}$', r'$\sigma_{i\phi i\phi}$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('sigmaEtaPhi', r'$\sigma_{\eta \eta}$', r'$\sigma_{\phi \phi}$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('centralAdjacentStripSize', r'Central $\eta$ Strip Size', r'Adjacent $\eta$ Strip Size', ndim=2),
         Histogram('longFiberEtOverShortFiber', r'Long Fiber $E_{T}$ / Short Fiber $E_{T}$', 'Counts', ndim=1, logscale=True, vmin=1e0, vmax=1e5),
     ]
@@ -63,9 +63,10 @@ def get_histograms_for_dataset(dataset):
         Histogram('sigmaPhiPhi', r'Seed Rechit $\sigma_{\phi \phi}$', 'Counts', ndim=1),
         Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', ndim=1),
         Histogram('averageDPhiFromSeed', r'Average $\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
-        Histogram('sigmaPhiRechitEnergy', r'$\sigma_{i\phi i\phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
-        Histogram('sigmaPhiRechitEta', r'$\sigma_{i\phi i\phi}$', r'Rechit $\eta$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
-        Histogram('sigmaPhiRechitPhi', r'$\sigma_{i\phi i\phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('deltaEtaRechits', r'$\Delta \eta$ From Seed RecHit', 'Counts', ndim=1),
+        Histogram('sigmaPhiRechitEnergy', r'$\sigma_{\phi \phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('sigmaPhiRechitEta', r'$\sigma_{\phi \phi}$', r'Rechit $\eta$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('sigmaPhiRechitPhi', r'$\sigma_{\phi \phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('initialRechitEtaPhi', r'Rechit $\eta$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e3, vmax=1e7),
         Histogram('mergedRechitEtaPhi', r'Rechit $\eta$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e3, vmax=1e7),
         Histogram('initialMergedRechitEnergies', r'Base Rechit Energy (GeV)', r'Merged Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=1e7),
