@@ -64,6 +64,7 @@ def get_histograms_for_dataset(dataset):
         Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', ndim=1),
         Histogram('averageDPhiFromSeed', r'Average $\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
         Histogram('deltaEtaRechits', r'$\Delta \eta$ From Seed RecHit', 'Counts', ndim=1),
+        Histogram('deltaPhiRechits', r'$\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
         Histogram('sigmaPhiRechitEnergy', r'$\sigma_{\phi \phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('sigmaPhiRechitEta', r'$\sigma_{\phi \phi}$', r'Rechit $\eta$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('sigmaPhiRechitPhi', r'$\sigma_{\phi \phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
