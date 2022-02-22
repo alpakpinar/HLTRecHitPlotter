@@ -27,6 +27,7 @@ class HistogramBase():
         if not os.path.exists(outdir):
             os.makedirs(outdir)
         fig.savefig(path)
+        plt.close(fig)
 
     def _decorate_plot(self, ax: plt.axis) -> None:
         dataset, run = self.plottag.split(', ')
