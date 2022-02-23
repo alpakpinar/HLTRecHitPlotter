@@ -33,6 +33,7 @@ def get_histograms_for_dataset(dataset):
         Histogram('longFiberEtOverShortFiber', r'Long Fiber $E_{T}$ / Short Fiber $E_{T}$', 'Counts', ndim=1, logscale=True, vmin=1e0, vmax=1e5),
         Histogram('deltaEtaRechits', r'$\Delta \eta$ From Seed RecHit', 'Counts', ndim=1),
         Histogram('deltaPhiRechits', r'$\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
+        Histogram('rechitClusterEts', r'Rechit Cluster $E_{T}$ (GeV)', 'Counts', ndim=1),
         Histogram('deltaEtaPhiRechits', r'$\Delta \eta$ From Seed RecHit', r'$\Delta \phi$ From Seed RecHit', ndim=2, logscale=True, vmin=1e1, vmax=1e5),
         Histogram('initialMergedRechitEnergies', r'Base Rechit Energy (GeV)', r'Merged Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=1e7),
         OverlayHistogram('numRechits', r'Number of Rechits ($E > 1 \ GeV$)', 'Counts', root_histo_names=['numInitialRechits', 'numMergedRechits'], logscale=True, vmin=1e0, vmax=1e6),
