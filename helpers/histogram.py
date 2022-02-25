@@ -115,7 +115,7 @@ class Histogram(HistogramBase):
         elif re.match('.*sigmaEtaPhi.*', self.name):
             xs = ax.get_xlim()
             ys = (xs[0]-0.05, xs[1]-0.05)
-            ax.plot(xs, ys, color='red', lw=3)
+            ax.plot(xs, xs, color='red', lw=3)
             ax.set_xlim(0,0.4)
             ax.set_ylim(0,0.4)
         

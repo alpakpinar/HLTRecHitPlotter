@@ -8,7 +8,7 @@ def get_pretty_plot_tag(dataset: str):
     '''Given the dataset name (short), get the pretty tag to print in the plot.'''
     mapping = {
         'MET' : 'MET 2018A, Run: 315264',
-        'EGamma' : 'EGamma 2018A, Run: 316600-316766',
+        'EGamma' : 'EGamma 2018A, Run: 316600-316900',
         'VBFHinv' : 'VBF H(inv), 14 TeV',
     }
     try:
