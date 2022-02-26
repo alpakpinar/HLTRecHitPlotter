@@ -28,7 +28,7 @@ def get_histograms_for_dataset(dataset):
     histos = {}
     common_histograms = [
         Histogram('numHFRechits', r'Number of Seed HF RecHits ($E_T > 30 \ GeV$)', 'Counts', ndim=1),
-        Histogram('sigmaEtaPhi', r'$\sigma_{\eta \eta}$', r'$\sigma_{\phi \phi}$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('sigmaEtaPhi', r'$\sigma_{\eta \eta}$', r'$\sigma_{\phi \phi}$', ndim=2, logscale=True, vmin=1e0, vmax=1e2),
         Histogram('centralAdjacentStripSize', r'Central $\eta$ Strip Size', r'Adjacent $\eta$ Strip Size', ndim=2),
         Histogram('longFiberEtOverShortFiber', r'Long Fiber $E_{T}$ / Short Fiber $E_{T}$', 'Counts', ndim=1, logscale=True, vmin=1e0, vmax=1e5),
         Histogram('deltaEtaRechits', r'$\Delta \eta$ From Seed RecHit', 'Counts', ndim=1),
@@ -75,6 +75,9 @@ def get_histograms_for_dataset(dataset):
         Histogram('sigmaPhiRechitPhi', r'$\sigma_{\phi \phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('initialRechitEtaPhi', r'Rechit $\eta$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e3, vmax=1e7),
         Histogram('mergedRechitEtaPhi', r'Rechit $\eta$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e3, vmax=1e7),
+        Histogram('jetPtRechitPt', r'Leading Jet $p_{T}$ (GeV)', r'RecHit Cluster $E_{T}$ (GeV)', ndim=2, logscale=True, vmin=1e1, vmax=1e4),
+        Histogram('jetEtaRechitEta', r'Leading Jet $\eta$', r'Seed RecHit $\eta$', ndim=2, logscale=True, vmin=1e1, vmax=1e4),
+        Histogram('jetPhiRechitPhi', r'Leading Jet $\phi$', r'Seed RecHit $\phi$', ndim=2, logscale=True, vmin=1e1, vmax=1e4),
         OverlayHistogram('met', r'$p_T^{miss} \ (GeV)$', 'Counts', root_histo_names=['metPtNotClean', 'metPtClean'], thresh={'distribution': 'MET', 'value': 100}),
     ]
     

@@ -129,6 +129,12 @@ class Histogram(HistogramBase):
             
             ax.legend(loc='lower right')
 
+        elif self.name in ['jetPtRechitPt']:
+            xs = ax.get_xlim()
+            ax.plot(xs, xs, lw=2, color='red')
+            ax.set_xlim(0,600)
+            ax.set_ylim(0,600)
+
         ax.set_xlabel(self.xlabel, fontsize=self.fontsize)
         ax.set_ylabel(self.ylabel, fontsize=self.fontsize)
         
