@@ -50,6 +50,7 @@ def compute_s_over_b(histos, mask_expression: str):
             xedges, yedges, values, mask_expression=mask_expression
         )
 
+        # Note: Masked array contains entries failing the given "mask_expression"
         masked_array = cut.return_masked_array()
         number_of_events[tag] = np.sum(masked_array)
         eff[tag] = np.sum(masked_array) / np.sum(values)
@@ -72,7 +73,7 @@ def plot_s_over_b(histos, outdir):
         physics_rejection.append(1-physics_eff_val)
 
     fig, ax = plt.subplots()
-    ax.scatter(thresholds, s_over_b, label='# Physics / # Noise')
+    # ax.scatter(thresholds, s_over_b, label='# Physics / # Noise')
     ax.scatter(thresholds, noise_rejection, label='Noise Rejection')
     ax.scatter(thresholds, physics_rejection, label='Physics Rejection')
     ax.legend(title='Quantity')
