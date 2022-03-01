@@ -29,7 +29,11 @@ def get_histograms_for_dataset(dataset):
     common_histograms = [
         Histogram('numHFRechits', r'Number of Rechit Clusters ($E_T > 100 \ GeV$)', 'Counts', ndim=1),
         Histogram('sigmaEtaPhi', r'$\sigma_{\eta \eta}$', r'$\sigma_{\phi \phi}$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('sigmaEtaPhi_etaLt3p25', r'$\sigma_{\eta \eta}$', r'$\sigma_{\phi \phi}$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
+        Histogram('sigmaEtaPhi_etaGt3p25', r'$\sigma_{\eta \eta}$', r'$\sigma_{\phi \phi}$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
         Histogram('centralAdjacentStripSize', r'Central $\eta$ Strip Size', r'Adjacent $\eta$ Strip Size', ndim=2),
+        Histogram('centralAdjacentStripSize_etaLt3p25', r'Central $\eta$ Strip Size', r'Adjacent $\eta$ Strip Size', ndim=2),
+        Histogram('centralAdjacentStripSize_etaGt3p25', r'Central $\eta$ Strip Size', r'Adjacent $\eta$ Strip Size', ndim=2),
         Histogram('longFiberEtOverShortFiber', r'Long Fiber $E_{T}$ / Short Fiber $E_{T}$', 'Counts', ndim=1, logscale=True, vmin=1e0, vmax=1e5),
         Histogram('deltaEtaRechits', r'$\Delta \eta$ From Seed RecHit', 'Counts', ndim=1),
         Histogram('deltaPhiRechits', r'$\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
