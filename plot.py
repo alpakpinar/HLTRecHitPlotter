@@ -64,22 +64,13 @@ def get_histograms_for_dataset(dataset):
         Histogram('photonPhi', r'Photon $\phi$', 'Counts', ndim=1),
         Histogram('dphiJetPho', r'$\Delta\phi(j, \gamma)$', 'Counts', ndim=1),
         Histogram('dptJetPho', r'$\Delta p_T(j, \gamma) \ / \ p_T(j)$', 'Counts', ndim=1),
-        Histogram('averageDPhi_centralStripSize', r'Average $\Delta \phi$ From Seed RecHit', r'Central $\eta$ Strip Size', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
     ]
 
     noise_histograms = [
         Histogram('jetPt', r'Leading Jet $p_T \ (GeV)$', 'Counts', ndim=1),
         Histogram('jetEta', r'Leading Jet $\eta$', 'Counts', ndim=1),
         Histogram('jetPhi', r'Leading Jet $\phi$', 'Counts', ndim=1),
-        Histogram('sigmaEtaEta', r'Seed Rechit $\sigma_{\eta \eta}$', 'Counts', ndim=1),
-        Histogram('sigmaPhiPhi', r'Seed Rechit $\sigma_{\phi \phi}$', 'Counts', ndim=1),
         Histogram('deltaPhiJetMET', r'$\Delta\phi(jet,MET)$', 'Counts', ndim=1),
-        Histogram('averageDPhiFromSeed', r'Average $\Delta \phi$ From Seed RecHit', 'Counts', ndim=1),
-        Histogram('sigmaPhiRechitEnergy', r'$\sigma_{\phi \phi}$', r'Rechit Energy (GeV)', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
-        Histogram('sigmaPhiRechitEta', r'$\sigma_{\phi \phi}$', r'Rechit $\eta$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
-        Histogram('sigmaPhiRechitPhi', r'$\sigma_{\phi \phi}$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e0, vmax=5e2),
-        Histogram('initialRechitEtaPhi', r'Rechit $\eta$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e3, vmax=1e7),
-        Histogram('mergedRechitEtaPhi', r'Rechit $\eta$', r'Rechit $\phi$', ndim=2, logscale=True, vmin=1e3, vmax=1e7),
         Histogram('jetPtRechitPt', r'Leading Jet $p_{T}$ (GeV)', r'RecHit Cluster $E_{T}$ (GeV)', ndim=2, logscale=True, vmin=1e1, vmax=1e4),
         Histogram('jetEtaRechitEta', r'Leading Jet $\eta$', r'Seed RecHit $\eta$', ndim=2, logscale=True, vmin=1e1, vmax=1e4),
         Histogram('jetPhiRechitPhi', r'Leading Jet $\phi$', r'Seed RecHit $\phi$', ndim=2, logscale=True, vmin=1e1, vmax=1e4),
